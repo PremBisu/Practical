@@ -1,0 +1,83 @@
+Experiment no:  5
+Write function for sorting array of floating point numbers in ascending order using
+a) https://www.slideshare.net/GaneshPawar819187/practicle-1docx sort
+b) Shell Sort and display top five scores
+
+
+def shellSort(arr):
+    n=len(arr)
+    gap=n//2
+    #Do a gapped insertion_sort for this gap size.
+    #The first gap elements a[0..gap-1]are already in gapped
+    #order keepp adding one more element until the entire array
+    #is gap sorted
+    while gap>0:
+        for i in range(gap,n):
+            #add arr[i] to the elements that have been gap sorted
+            #save arr[i] in temp and make a hole at position i
+            temp=arr[i]
+            #shift earler gap-sorted elements up until the correct
+            #location for arr[i] is found
+            j=i
+            while j>=gap and arr[j-gap]>temp:
+                arr[j]=arr[j- gap]
+                j-=gap
+            #put temp (the original arr[i]) in the correct location
+            arr[i]=temp
+        gap=gap//2
+    return arr
+def insertion_sort(arr):
+    for i in range (1, len(arr)):
+        key=arr[i]
+        #move elements of a[0...,i-1], that are
+        #greater than key, to one position ahead
+        #of their current position
+        j=i-1
+        while j>=0 and key <arr[j]:
+            arr[j+1]=arr[j]
+            j-=1
+            arr[j+1]=key
+        return arr
+    def top_five(arr):
+    print("Top five scores are : ")
+    cnt=len(arr)
+    if cnt<5:
+        start, stop=cnt-1,-1 #stop set to -1 as we want to print the 0th element
+    else:
+        start,stop=cnt-1,cnt-6
+    for i in range(start,stop,-1):
+        print("\t{0:2f}".format(arr[i]),end=" ")
+arr=[]
+Num=int(input("Enter the number of students: "))
+for i in range (Num):
+    per=float(input("Enter the number of students"+str(i+1)+":"))
+    arr.append(per)
+ def main():
+    print("1.shellsort")
+    print("2.insertionsort")
+    print("3.dispaly top five marks")
+    print("4.exit")
+    choice=int(input("Enter choice for sort: "))
+    if choice==1:
+        insertion_sort(arr)
+        print("Sorted Array:")
+        m=[]
+        for i in range(len(arr)):
+            m.append(arr)
+            print(m)
+            break
+        elif choice==2:
+        shellSort(arr)
+        print("Sorted Array is:")
+        n=[]
+        for i in range(len(arr)):
+            n.append(arr)
+            print(n)
+            break
+    elif choice==3:
+        top_five(arr)
+    elif choice==4:
+        exit
+    else:
+        print("Enter  valid input : ")
+main()
