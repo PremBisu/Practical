@@ -1,0 +1,186 @@
+# Problem statement Group A - 5
+"""
+Write a Python program to compute following operations on String:
+a) To display word with the longest length
+b) To determines the frequency of occurrence of particular character in the string
+c) To check whether given string is palindrome or not
+d) To display index of first appearance of the substring
+e) To count the occurrences of each word in a given string
+"""
+
+
+def longestWordFinder(sampleString):
+    """Finds the length of the largest word in a given string
+
+    Args:
+        sampleString (String): Given string
+
+    Returns:
+        int: length of largest word
+    """
+    longestword = ""
+    longestLength = 0
+    count = 0
+    word = ""
+    for i in range(len(sampleString)):
+        if sampleString[i] == " ":
+            if longestLength < count:
+                longestLength = count
+                longestword = word
+            count = 0
+            word = ""
+        elif i == len(sampleString) - 1:
+            count += 1
+            word += sampleString[i]
+            if longestLength < count:
+                longestLength = count
+                longestword = word
+        else:
+            count += 1
+            word += sampleString[i]
+
+    return longestword
+
+
+def frequency(character, sampleString):
+    """Function that counts a number of occurrences of a given character in a given string
+
+    Args:
+        character (String): the character whose no of occurrences has to be found
+        sampleString ([type]): the string from which is to be found
+
+    Returns:
+        int: no of occurrences
+    """
+
+    count = 0
+    for i in range(len(sampleString)):
+        if sampleString[i] == character:
+            count += 1
+    return count
+
+
+def isPalindrome(sampleString):
+    """Functions that checks is if a given input is palindrome
+
+    Args:
+        sampleString (String): String to check
+
+    Returns:
+        bool: True/False
+    """
+
+    x = len(sampleString)
+    x = x-1
+    isPalindrome = True
+    for i in range(int(len(sampleString)/2)):
+        if sampleString[i] == sampleString[x]:
+            pass
+        else:
+            isPalindrome = False
+            break
+        x -= 1
+    return isPalindrome
+
+
+def subStringFinder(sampleString, subString):
+    """Finds the first occurrence of a substring in a given string
+
+    Args:
+        sampleString (String): It is the main string
+        subString (String): It is the substring string
+
+    Returns:
+        int: position of the first occurrence of subString
+    """
+
+    x = len(sampleString)
+    y = len(subString)
+
+    if y == 1:
+        for i in range(x):
+            if sampleString[i] == subString:
+                return i
+
+        return -1
+
+    for i in range(x-y+1):
+        for j in range(y):
+            if sampleString[i+j] != subString[j]:
+                break
+        if j + 1 == y:
+            return i
+    return -1
+
+
+def occurrenceOfEachWord(sampleString):
+    occurrenceOfEachWord = {}
+    word = ""
+    for i in range(len(sampleString)):
+        if sampleString[i] == " ":
+            if word in occurrenceOfEachWord.keys():
+                occurrenceOfEachWord[word] += 1
+            else:
+                occurrenceOfEachWord[word] = 1
+            word = ""
+
+        elif i == len(sampleString) - 1:
+            word += sampleString[i]
+            if word in occurrenceOfEachWord.keys():
+                occurrenceOfEachWord[word] += 1
+            else:
+                occurrenceOfEachWord[word] = 1
+
+        else:
+            word += sampleString[i]
+
+    return occurrenceOfEachWord
+
+
+while(True):
+    print()
+    print("*"*10 + "Menu" + "*"*10)
+    print("""1 .To display word with the longest length
+2. To determines the frequency of occurrence of particular character in the string
+3. To check whether given string is palindrome or not
+4. To display index of first appearance of the substring
+5. To count the occurrences of each word in a given string
+6. EXIT """)
+    print("*"*24)
+    choice = int(input("Enter your choice for the following operations:"))
+    
+    if choice == 1:
+        String = input(("Enter the string "))
+        print("Largest word in the string is", longestWordFinder(String))
+
+    elif choice == 2:
+        String = input(("Enter the string "))
+        character = input(("Enter the character "))
+        print("Frequency of occurrence of the character in the string is ", frequency(character, String))
+
+    elif choice == 3:
+        String = input(("Enter the string "))
+        if(isPalindrome(String)):
+            print("The given string is palindrome")
+        else:
+            print("The give string is not palindrome")
+    
+    elif choice == 4:
+        String = input(("Enter the string "))
+        subString = input(("Enter the substring "))
+        x = subStringFinder(String, subString)
+        if x == -1:
+            print("No substring is found")
+        else:
+            print("The given substring is at position ", x)
+
+    elif choice == 5:
+        String = input(("Enter the string "))
+        print("The occurrence of each word in the string is ", occurrenceOfEachWord(String))
+
+    elif choice == 6:
+        print("EXIT")
+        break
+
+    else:
+        print("Enter valid input")
